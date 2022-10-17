@@ -64,6 +64,7 @@ public class PeopleController {
         if (bindingResult.hasErrors()) {
             return "people/edit";
         }
+        System.out.println("dsaasdaSDSdSDsdSf");
 
         return "redirect:/people";
     }
