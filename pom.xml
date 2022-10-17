@@ -53,6 +53,19 @@
       <version>3.0.15.RELEASE</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>7.0.5.Final</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.guicedee.services/jakarta.validation-api -->
+    <dependency>
+      <groupId>com.guicedee.services</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>62</version>
+    </dependency>
 
 
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
@@ -61,6 +74,12 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>23.0.0</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <build>

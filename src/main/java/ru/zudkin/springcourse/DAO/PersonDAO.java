@@ -8,14 +8,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class PersonDAO {
-    private static int PERSON_ID;
+    private static int PEOPLE_COUNT;
     private List<Person> people;
+
     {
         people = new ArrayList<>();
-        people.add(new Person(++PERSON_ID, "Tom"));
-        people.add(new Person(++PERSON_ID, "Jack"));
-        people.add(new Person(++PERSON_ID, "Bob"));
-        people.add(new Person(++PERSON_ID, "Katy"));
+
+        people.add(new Person(++PEOPLE_COUNT, "Tom", 24, "tom@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Bob", 52, "bob@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Mike", 18, "mike@yahoo.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Katy", 34, "katy@gmail.com"));
     }
 
     public List<Person> index() {
@@ -27,13 +29,16 @@ public class PersonDAO {
     }
 
     public void save(Person person) {
-        person.setId(++PERSON_ID);
+        person.setId(++PEOPLE_COUNT);
         people.add(person);
     }
 
-    public void update(Person person, int id) {
+    public void update(int id, Person updatedPerson) {
         Person personToBeUpdated = show(id);
-        personToBeUpdated.setName(person.getName());
+
+        personToBeUpdated.setName(updatedPerson.getName());
+        personToBeUpdated.setAge(updatedPerson.getAge());
+        personToBeUpdated.setEmail(updatedPerson.getEmail());
     }
 
     public void delete(int id) {

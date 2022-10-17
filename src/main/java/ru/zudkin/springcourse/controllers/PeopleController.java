@@ -1,17 +1,25 @@
 package ru.zudkin.springcourse.controllers;
 
+import jakarta.validation.Valid;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.zudkin.springcourse.DAO.PersonDAO;
 import ru.zudkin.springcourse.models.Person;
 
+
+/**
+ * @author Neil Alishev
+ */
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
+
     private final PersonDAO personDAO;
+
     @Autowired
     public PeopleController(PersonDAO personDAO) {
         this.personDAO = personDAO;
@@ -28,12 +36,18 @@ public class PeopleController {
         model.addAttribute("person", personDAO.show(id));
         return "people/show";
     }
+
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
     }
-    @PostMapping
-    public String create(@ModelAttribute("person") Person person) {
+
+    @PostMapping()
+    public String create(@Valid @ModelAttribute("person") Person person,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "people/new";
+        }
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -45,8 +59,12 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
-        personDAO.update(person, id);
+    public String update(@Valid @ModelAttribute("person") Person person, BindingResult bindingResult,
+                         @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "people/edit";
+        }
+
         return "redirect:/people";
     }
 
