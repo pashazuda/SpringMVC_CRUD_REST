@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Component
 public class PersonDAO {
+    private static int PERSON_ID;
     private List<Person> people;
     {
         people = new ArrayList<>();
-        people.add(new Person(1, "Tom"));
-        people.add(new Person(2, "Jack"));
-        people.add(new Person(3, "Bob"));
-        people.add(new Person(4, "Katy"));
+        people.add(new Person(++PERSON_ID, "Tom"));
+        people.add(new Person(++PERSON_ID, "Jack"));
+        people.add(new Person(++PERSON_ID, "Bob"));
+        people.add(new Person(++PERSON_ID, "Katy"));
     }
 
     public List<Person> index() {
@@ -23,6 +24,11 @@ public class PersonDAO {
 
     public Person show(int id) {
         return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
+    }
+
+    public void save(Person person) {
+        person.setId(++PERSON_ID);
+        people.add(person);
     }
 
 }
